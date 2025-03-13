@@ -6,48 +6,43 @@ import { Menu } from 'antd';
 type MenuItem = Required<MenuProps>['items'][number];
 
 const items: MenuItem[] = [
-  {
-    label: 'Blonix Retos',
-    key: '',
-
-  },
-  {
-    label: 'Inicio',
-    key: 'mail',
-    icon: <MailOutlined />,
-  },
+  { label: 'Blonix Retos', key: 'home', },
+  { label: 'Inicio', key: 'inicio', icon: <MailOutlined />, },
   {
     label: 'Retos',
-    key: 'SubMenu',
+    key: 'retos',
     icon: <SettingOutlined />,
     children: [
       {
         type: 'group',
         label: 'Codigo',
         children: [
-          { label: 'Desafio de codigo', key: 'setting:1' },
-          { label: 'Encuentra el error', key: 'setting:2' },
+          { label: 'Desafio de codigo', key: 'desafio_codigo' },
+          { label: 'Encuentra el error', key: 'encuentra_error' },
         ],
       },
       {
         type: 'group',
         label: 'Varios',
         children: [
-          { label: 'Descubre la palabra del dia', key: 'setting:3' },
-          { label: 'Descubre el juego del dia', key: 'setting:4' },
+          { label: 'Descubre la palabra del dia', key: 'palabra_dia' },
+          { label: 'Descubre el juego del dia', key: 'juego_dia' },
         ],
       },
     ],
   },
-
 ];
 
-const NavBar: React.FC = () => {
-  const [current, setCurrent] = useState('mail');
+interface NavBarProps {
+  onSelect: (key: string) => void;
+}
+
+const NavBar: React.FC<NavBarProps> = ({ onSelect }) => {
+  const [current, setCurrent] = useState('inicio');
 
   const onClick: MenuProps['onClick'] = (e) => {
-    // console.log('click ', e);
     setCurrent(e.key);
+    onSelect(e.key);
   };
 
   return (
